@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>welcome user{{request.user}}</h1>
+
+    {% if not flag %}
+    <a href="{% url 'accounts' %}">Create account</a>
+    {% endif %}
+
+    {% for message in messages%}
+    <h1>{{message}}</h1>
+    {% endfor %}
+
+    <a href="{% url 'transactions' %}">Fund Transfer</a><br>
+    <a href="{% url 'balance' %}">View Balance</a><br>
+    <a href="{% url 'history' %}">Transaction History</a>
+
+</body>
+</html>
