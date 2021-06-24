@@ -1,17 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>Transfer Fund</h1>
+{% extends 'home.html' %}
+{% block body_block %}
+<!--<h1>Transfer Fund</h1>-->
 
-<form method="post" action="">
+<!--<form method="post" action="">-->
 
-    {%csrf_token%}
-    {{form.as_p}}
-    <input type="submit">
+<!--    {%csrf_token%}-->
+<!--    {{form.as_p}}-->
+<!--    <input type="submit">-->
+<!--</form>-->
+
+<form method="post" action="" enctype="multipart/form-data">
+ <div class="col d-flex justify-content-center">
+      <div class="card bg-light" style="width: 50rem;">
+          <div class="card-body">
+            <h5 class="card-title"><b>Transfer</b></h5>
+            <p class="card-text">
+                        {%csrf_token%}
+                        {{form.as_p}}
+            <input type="submit" value="create">
+            </p>
+          </div>
+    </div>
+ </div>
 </form>
-</body>
-</html>
+
+{% endblock%}

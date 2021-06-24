@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import Registration,LoginView,AccountCreateView,index,TransactionsView,BalanceEnq,TransactionHistory
+from .views import Registration,LoginView,AccountCreateView,index,TransactionsView,BalanceEnq,TransactionHistory,signout
 
 urlpatterns = [
     path('register', Registration.as_view(), name="register"),
@@ -24,5 +24,6 @@ urlpatterns = [
     path('index', index, name="index"),
     path('transactions', TransactionsView.as_view(), name="transactions"),
     path('enq', BalanceEnq.as_view(), name="balance"),
-    path('history', TransactionHistory.as_view(), name="history")
+    path('history', TransactionHistory.as_view(), name="history"),
+    path('logout/', signout, name="logout")
 ]

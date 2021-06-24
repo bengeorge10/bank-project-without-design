@@ -1,27 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>Debit Transactions</h1>
-{% for transaction in dtransactions %}
+{% extends 'home.html' %}
+{% block body_block %}
 
-<h3>{{transaction.amount}}</h3>
-<h3>{{transaction.date}}</h3>
-<h3>{{transaction.to_accno}}</h3>
+<!--<h1>Debit Transactions</h1>-->
+<!--{% for transaction in dtransactions %}-->
 
-{% endfor %}
+<!--<h3>{{transaction.amount}}</h3>-->
+<!--<h3>{{transaction.date}}</h3>-->
+<!--<h3>{{transaction.to_accno}}</h3>-->
 
-<h1>Credit Transactions</h1>
-{% for transaction in ctransactions %}
+<!--{% endfor %}-->
 
-<h3>{{transaction.amount}}</h3>
-<h3>{{transaction.date}}</h3>
-<h3>{{transaction.to_accno}}</h3>
+<!--<h1>Credit Transactions</h1>-->
+<!--{% for transaction in ctransactions %}-->
 
-{% endfor %}
+<!--<h3>{{transaction.amount}}</h3>-->
+<!--<h3>{{transaction.date}}</h3>-->
+<!--<h3>{{transaction.to_accno}}</h3>-->
 
-</body>
-</html>
+<!--{% endfor %}-->
+
+
+<div class="container">
+    <h2>Debit Transactions</h2>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>To</th>
+        </tr>
+        </thead>
+        {% for transaction in dtransactions %}
+        <tr>
+            <td>{{transaction.amount}}</td>
+            <td>{{transaction.date}}</td>
+            <td>{{transaction.to_accno}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Credit Transactions</h2>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>To</th>
+        </tr>
+        </thead>
+        {% for transaction in ctransactions %}
+        <tr>
+            <td>{{transaction.amount}}</td>
+            <td>{{transaction.date}}</td>
+            <td>{{transaction.to_accno}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock%}

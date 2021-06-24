@@ -1,11 +1,40 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
     <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link href="{%static 'css/loginstyle.css'%}" rel="stylesheet" />
+
 </head>
 <body>
-    <h1>welcome user{{request.user}}</h1>
+
+<div class="topnav">
+    <div class="container-fluid">
+        <a style="color:black;" href="{% url 'logout' %}">Logout</a>
+        <a href="#">Welcome Back, {{request.user}}</a>
+        <img src="{%static 'images/logo.png'%}" width="3%" alt="">
+        <span style="font-size:18px;font-weight:500;color:white;">B4U </span>
+    </div>
+
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6 topnav color">
+            <a style="color:black;" href="{% url 'history' %}">Transaction History</a>
+            <a style="color:black;" href="{% url 'balance' %}">View Balance</a>
+            <a style="color:black;" href="{% url 'transactions' %}">Fund Transfer</a>
+            <a style="color:black;" href="{% url 'index' %}">Home</a>
+        </div>
+        <div class="col-3"></div>
+    </div>
+</div>
+
+<div>
+    {% block body_block %}
 
     {% if not flag %}
     <a href="{% url 'accounts' %}">Create account</a>
@@ -15,9 +44,50 @@
     <h1>{{message}}</h1>
     {% endfor %}
 
-    <a href="{% url 'transactions' %}">Fund Transfer</a><br>
-    <a href="{% url 'balance' %}">View Balance</a><br>
-    <a href="{% url 'history' %}">Transaction History</a>
+    <img src="{%static 'images/homepage.png'%}" width="100%" alt="">
+    {% endblock%}
+</div>
+
+<div class="navbar">
+    <div class="container">
+        <a href="#">About Us</a>
+        <a href="#">Business</a>
+        <a href="#">Corporate</a>
+        <a href="#">Bank & Save</a>
+        <a href="#">Home Loans</a>
+        <a href="#">Credit card</a>
+        <a href="#">Personal Loans</a>
+        <a href="#">Contact</a>
+        <a href="#">Help</a>
+    </div>
+</div>
+
+
+<!--    <h1>welcome user{{request.user}}</h1>-->
+
+<!--    {% if not flag %}-->
+<!--    <a href="{% url 'accounts' %}">Create account</a>-->
+<!--    {% endif %}-->
+
+<!--    {% for message in messages%}-->
+<!--    <h1>{{message}}</h1>-->
+<!--    {% endfor %}-->
+
+<!--    <a href="{% url 'transactions' %}">Fund Transfer</a><br>-->
+<!--    <a href="{% url 'balance' %}">View Balance</a>-->
+
+<!--    <button onclick="getBalance()">Get Balance</button>><br>-->
+
+<!--    <a href="{% url 'history' %}">Transaction History</a>-->
 
 </body>
+
+<script>
+    function getBalance(){
+        console.log("hello");
+        fetch(" http://127.0.0.1:8000/bank/enq").
+        then(res=>res.json()).
+        then(data=>alert((data.balance)).catch(err=>console.log(err));
+    }
+</script>
 </html>

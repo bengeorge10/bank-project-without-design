@@ -1,10 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'home.html' %}
+{% block body_block %}
+
 <h1>Account Creation</h1>
 
 <form method="post" action="">
@@ -13,5 +10,5 @@
     {{form.as_p}}
     <input type="submit">
 </form>
-</body>
-</html>
+
+{% endblock%}

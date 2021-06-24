@@ -1,10 +1,11 @@
+from django.http import JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from .forms import UserRegistrationForm, LoginForm, AccountCreateForm, TransactionCreateForm
 from django.views.generic import TemplateView
 from .models import CustomUser, Account, Transactions
-from django.contrib.auth import authenticate, login as djangologin
+from django.contrib.auth import authenticate, login as djangologin, logout
 from django.utils.decorators import method_decorator
-from .decorators import account_validator
+from .decorators import account_validator, login_required
 
 
 # Create your views here.
@@ -52,7 +53,7 @@ class LoginView(TemplateView):
                 # print("success")
                 # check for login user account status, if status=active ->no create account link
                 return redirect("index")
-
+                # return HttpResponseRedirect("index.html")
             else:
                 print("failed")
                 return render(request, self.template_name, self.context)
@@ -70,7 +71,7 @@ def index(request):
         return render(request, "home.html", context)
 
 
-@method_decorator(account_validator, name="dispatch")
+@method_decorator([account_validator, login_required], name="dispatch")
 class AccountCreateView(TemplateView):
     model = Account
     template_name = "createaccount.html"
@@ -104,6 +105,7 @@ class GetUserMixin(object):  # to get user of the account number for fund transt
         return Account.objects.get(account_number=account_num)
 
 
+@method_decorator(login_required,name="dispatch")
 class TransactionsView(TemplateView, GetUserMixin):
     model = Transactions
     template_name = "transactions.html"
@@ -138,13 +140,17 @@ class TransactionsView(TemplateView, GetUserMixin):
             return render(request, self.template_name, self.context)
 
 
+@method_decorator(login_required,name="dispatch")
 class BalanceEnq(TemplateView):
     def get(self, request, *args, **kwargs):
         account = Account.objects.get(user=request.user)
         balance = account.balance
+
+        # return JsonResponse({"balance": balance})
         return render(request, "balancecheck.html", {"balance": balance})
 
 
+@method_decorator(login_required,name="dispatch")
 class TransactionHistory(TemplateView):
     def get(self, request, *args, **kwargs):
         debit_transactions = Transactions.objects.filter(user=request.user)
@@ -155,3 +161,8 @@ class TransactionHistory(TemplateView):
 
         return render(request, "transactionhistory.html", {"dtransactions": debit_transactions,
                                                            "ctransactions": credit_transactions})
+
+@method_decorator(login_required,name="dispatch")
+def signout(request):
+    logout(request)
+    return redirect("login")
